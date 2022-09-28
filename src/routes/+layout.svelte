@@ -24,7 +24,7 @@
 <!--<Header />-->
 
 <main>
-	<img src="/favicon.svg" alt="PWA Logo" width="60" height="60"/>
+	<img src="/favicon.png" alt="PWA Logo" width="60" height="60"/>
 	<h1>SvelteKit!</h1>
 
 	<div class="built">Built at: { date }</div>

@@ -1,17 +1,13 @@
 import { magic } from '$lib/_magic';
 import { removeSessionCookie } from '$lib/_utils';
 
+import { error, json } from '@sveltejs/kit';
+ 
+/** @type {import('./$types').RequestHandler} */
 export async function GET(event) {
 	try {
 		if (!event.locals['user']) {
-			return {
-				status: 401,
-				body: {
-					error: {
-						message: 'Unauthorized'
-					}
-				}
-			};
+			throw error(401, 'Unauthorized')
 		}
 
 		const cookie = removeSessionCookie();
@@ -22,22 +18,13 @@ export async function GET(event) {
 			console.log('Magic session already expired');
 		}
 
-		return {
-			status: 200,
+		return json({user: 'logedout'}, {
 			headers: {
-				'cache-control': 'no-store',
-				'set-cookie': cookie
-			},
-			body: {}
-		};
-	} catch (err) {
-		return {
-			status: 401,
-			body: {
-				error: {
-					message: 'Unauthorized'
-				}
+				'set-cookie': cookie,
+				'cache-control': 'no-store'
 			}
-		};
+		})
+	} catch (err) {
+		throw error(401, 'Unauthorized')
 	}
 }

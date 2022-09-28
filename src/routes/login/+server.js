@@ -2,6 +2,9 @@ import { magic } from '$lib/_magic';
 import { createSessionCookie } from '$lib/_utils';
 import { QUERY_USER_ROLE_BY_EMAIL } from '$lib/role'
 
+import { error, json } from '@sveltejs/kit';
+ 
+/** @type {import('./$types').RequestHandler} */
 export async function POST({request, locals}) {
 	try {
 		const didToken = magic.utils.parseAuthorizationHeader(request.headers.get('authorization'));
@@ -15,39 +18,21 @@ export async function POST({request, locals}) {
 		)
 
 		if(!active){
-			return {
-				status: 403,
-				body: {
-					error: {
-						message: 'El usuario no esta activo'
-					}
-				}
-			};
+			throw error(403, 'El usuario no esta activo')
 		}
 
 		const user = {...metadata, role}
 		
 		const cookie = await createSessionCookie(user);
 
-		return {
-			status: 200,
+		return json({user}, {
 			headers: {
 				'set-cookie': cookie
-			},
-			//@ts-ignore
-			body: {
-				user
 			}
-		};
+		})
+
 	} catch (err) {
 		console.log(err);
-		return {
-			status: 500,
-			body: {
-				error: {
-					message: 'Internal Server Error'
-				}
-			}
-		};
+		throw error(500, 'Internal Server Error')
 	}
 }
