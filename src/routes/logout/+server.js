@@ -1,7 +1,7 @@
 import { magic } from '$lib/_magic';
 import { removeSessionCookie } from '$lib/_utils';
 
-export async function get(event) {
+export async function GET(event) {
 	try {
 		if (!event.locals['user']) {
 			return {

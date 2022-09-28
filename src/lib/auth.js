@@ -20,7 +20,7 @@ export async function login(email) {
 	const didToken = await magic.auth.loginWithMagicLink({ email });
 
 	// Validate the did token on the server
-	const res = await fetch('/api/auth/login', {
+	const res = await fetch('/login', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -30,6 +30,7 @@ export async function login(email) {
 
 	if (res.ok) {
 		const data = await res.json();
+		console.log(data)
 		store.set({
 			loading: false,
 			user: data.user
@@ -38,7 +39,7 @@ export async function login(email) {
 }
 
 export async function logout() {
-	await fetch('/api/auth/logout');
+	await fetch('/logout');
 	store.set({
 		loading: false,
 		user: null

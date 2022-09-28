@@ -1,39 +1,11 @@
-<!-- supongo que este script debe ser un fichero +page.js-->
-<script lang="ts" context="module">
-	//This only runs when the module first evaluates and before any rendering happens.
-	import { store as authStore } from '$lib/auth';
-	import type { Load } from '@sveltejs/kit';
-
-	export const load: Load = async ({ fetch }) => {
-		const res = await fetch('/api/auth/user');
-		const json = await res.json();
-		const { user } = json;
-
-		authStore.set({
-			loading: false,
-			user
-		});
-
-		return {
-			status: 200
-			// stuff: {
-			// 	user
-			// }
-		};
-	};
-</script>
-
 <script>
 	import { onMount } from 'svelte'
 	//import { browser, dev } from '$app/environment'
-	import Header from '$lib/components/Header/index.svelte';
+	//import Header from '$lib/components/Header/index.svelte';
 	import "../app.css";
 
 	// replaced dynamically
 	const date = '__DATE__'
-	//const enableSwDev = '__SW_DEV__'
-
-	//const enableManifest = (!dev && browser) || (dev && browser && enableSwDev === 'true')
 
 	let ReloadPrompt
 	onMount(async () => {
@@ -45,11 +17,11 @@
 		// Also see:
 		// https://github.com/sveltejs/kit/issues/696
 		// https://github.com/sveltejs/kit/issues/672
-		await fetch('/api/auth/user');
+		await fetch('/user');
 	})
 </script>
 
-<Header />
+<!--<Header />-->
 
 <main>
 	<img src="/favicon.svg" alt="PWA Logo" width="60" height="60"/>
@@ -60,6 +32,7 @@
 	<h1 class="text-3xl font-bold underline">
 		Hello world!
 	</h1>
+	<button class="btn btn-warning">With daisyui!</button>
 
 	<slot />
 

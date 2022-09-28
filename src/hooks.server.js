@@ -1,7 +1,7 @@
 import cookie from 'cookie';
 import { SESSION_NAME } from '$lib/config';
-import { getSession } from './routes/api/auth/_utils';
-import { client } from '$lib/edgedb';
+import { getSession } from '$lib/_utils';
+//import { client } from '$lib/edgedb';
 
 export const handle = async ({ event, resolve }) => {
 	const cookies = cookie.parse(event.request.headers.get('cookie') || '');
@@ -10,10 +10,11 @@ export const handle = async ({ event, resolve }) => {
 
 	if(user){
 		event.locals.user = user;
-		const scopedClient = client.withGlobals({
+		/*const scopedClient = client.withGlobals({
 			current_user: user.email,
 		  });
 		event.locals.scopedClient = scopedClient;
+        */
 	}
 
 	// TODO https://github.com/sveltejs/kit/issues/1046

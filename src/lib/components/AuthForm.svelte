@@ -1,6 +1,6 @@
-<script lang="ts">
+<script>
 	import * as auth from '$lib/auth';
-	import { goto } from '$app/navigation';
+	//import { goto } from '$app/navigation';
 
 	let email = '';
 	let submitting = false;
@@ -9,7 +9,7 @@
 		try {
 			submitting = true;
 			await auth.login(email);
-			goto('/todos');
+			//goto('/todos');
 		} catch (err) {
 			submitting = false;
 			console.log(err);

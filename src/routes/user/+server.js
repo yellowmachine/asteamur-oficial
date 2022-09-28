@@ -1,6 +1,22 @@
-import { createSessionCookie } from '$lib/_utils';
+//import { createSessionCookie } from '$lib/_utils';
 
-export async function get({locals}) {
+import { error, json } from '@sveltejs/kit';
+ 
+/** @type {import('./$types').RequestHandler} */
+export function GET({ url }) {
+	console.log('llego')
+	return json({user: {name: 'miguel'}})
+  	//return new Response({user: {name: 'miguel'}});
+}
+
+export async function yyyy({locals}) {
+	console.log('********************************voy a devolver user miguel')
+	return {
+		status: 200,
+		body: {
+			user: {name: 'miguel'}
+		}		
+	}
 	try {
 		if (!locals.user) {
 			return {
@@ -25,12 +41,12 @@ export async function get({locals}) {
 			}
 		};
 	} catch (err) {
-		console.log(err);
+		console.log('***', err)
 		return {
 			status: 500,
 			body: {
 				error: {
-					message: 'Internal Server Error'
+					message: 'Internal Server Error + ;)'
 				}
 			}
 		};

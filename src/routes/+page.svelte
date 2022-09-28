@@ -1,5 +1,6 @@
 <script>
     import { updated } from '$app/stores';
+    import AuthForm from '$lib/components/AuthForm.svelte'
 </script>
 
 <h1>Welcome to SvelteKit</h1>
@@ -8,3 +9,5 @@
 <div>Update: {$updated}</div>
 
 <a href="/about">go about</a>
+
+<AuthForm />
