@@ -1,6 +1,6 @@
 import { magic } from '$lib/_magic';
 import { createSessionCookie } from '$lib/_utils';
-import { QUERY_USER_ROLE_BY_EMAIL } from '$lib/role'
+//import { QUERY_USER_ROLE_BY_EMAIL } from '$lib/role'
 
 import { error, json } from '@sveltejs/kit';
  
@@ -11,9 +11,9 @@ export async function POST({request, locals}) {
 		await magic.token.validate(didToken);
 		const metadata = await magic.users.getMetadataByToken(didToken);
 
-		const scopedClient = locals.scopedClient;
+		//const scopedClient = locals.scopedClient;
 
-		const {role, active} = await scopedClient.queryRequiredSingle(QUERY_USER_ROLE_BY_EMAIL,
+		/*const {role, active} = await scopedClient.queryRequiredSingle(QUERY_USER_ROLE_BY_EMAIL,
 			{email: metadata.email}
 		)
 
@@ -22,7 +22,9 @@ export async function POST({request, locals}) {
 		}
 
 		const user = {...metadata, role}
-		
+		*/
+		const user = {...metadata, role: 'ADMIN'}
+
 		const cookie = await createSessionCookie(user);
 
 		return json({user}, {

@@ -1,7 +1,13 @@
+<script>
+	function realoadPage(){
+		document.location.reload()
+	}
+</script>
+
 <div class="pwa-toast" role="alert">
 	<div class="message">
 		<span>
-			New content available, click on <button on:click={()=>{}}>reload</button> to update.
+			New content available, click on <button on:click={realoadPage}>reload</button> to update.
 		</span>
 	</div>
 </div>

@@ -1,13 +1,19 @@
 <script>
 	import { onMount } from 'svelte'
-	//import { browser, dev } from '$app/environment'
+	import { updated } from '$app/stores';
+	import ReloadPrompt from '../lib/components/ReloadPrompt.svelte';
+	import { browser, dev } from '$app/environment'
 	//import Header from '$lib/components/Header/index.svelte';
 	import "../app.css";
 
 	// replaced dynamically
 	const date = '__DATE__'
 
-	let ReloadPrompt
+	function newVersionAvailable(){
+		return true //browser && $updated
+	}
+
+	//let ReloadPrompt
 	onMount(async () => {
 		//enableManifest && (ReloadPrompt = (await import('$lib/components/ReloadPrompt.svelte')).default)
 
@@ -42,8 +48,8 @@
 	<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
 </footer>
 
-{#if ReloadPrompt}
-	<svelte:component this={ReloadPrompt} />
+{#if newVersionAvailable()}
+	<ReloadPrompt />
 {/if}
 
 <style>
