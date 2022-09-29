@@ -4,7 +4,7 @@
 	import ReloadPrompt from '../lib/components/ReloadPrompt.svelte';
 	import { browser } from '$app/environment'
 	import "../app.css";
-	import { store as authStore } from '$lib/auth';
+	import { store as authStore, logout } from '$lib/auth';
 	import AuthForm from '$lib/components/AuthForm.svelte'
     import LoginImage from '$lib/components/LoginImage.svelte'
 
@@ -15,6 +15,10 @@
 
 	function newVersionAvailable(){
 		return browser && $updated
+	}
+
+	function handleLogout() {
+		logout();
 	}
 
 	//let ReloadPrompt
@@ -34,6 +38,7 @@
 <main>
 	<!--<slot />-->
 	{#if auth.user}
+		<button class="btn btn-error" on:click={handleLogout}>Desconectar</button>
 		<slot />
 	{:else}		
 		<LoginImage />

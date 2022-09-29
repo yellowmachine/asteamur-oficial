@@ -44,5 +44,5 @@ export async function logout() {
 		loading: false,
 		user: null
 	});
-	goto('/auth');
+	goto('/');
 }
