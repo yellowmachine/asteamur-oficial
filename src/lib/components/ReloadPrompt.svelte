@@ -7,7 +7,7 @@
 <div class="pwa-toast" role="alert">
 	<div class="message">
 		<span>
-			New content available, click on <button on:click={realoadPage}>reload</button> to update.
+			Hay una nueva versión disponible, haz click en <button on:click={realoadPage}>recargar</button> para actualizar.
 		</span>
 	</div>
 </div>

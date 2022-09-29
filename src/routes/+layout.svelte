@@ -2,15 +2,19 @@
 	import { onMount } from 'svelte'
 	import { updated } from '$app/stores';
 	import ReloadPrompt from '../lib/components/ReloadPrompt.svelte';
-	import { browser, dev } from '$app/environment'
-	//import Header from '$lib/components/Header/index.svelte';
+	import { browser } from '$app/environment'
 	import "../app.css";
+	import { store as authStore } from '$lib/auth';
+	import AuthForm from '$lib/components/AuthForm.svelte'
+    import LoginImage from '$lib/components/LoginImage.svelte'
+
+	$: auth = $authStore;
 
 	// replaced dynamically
 	const date = '__DATE__'
 
 	function newVersionAvailable(){
-		return true //browser && $updated
+		return browser && $updated
 	}
 
 	//let ReloadPrompt
@@ -27,26 +31,15 @@
 	})
 </script>
 
-<!--<Header />-->
-
 <main>
-	<img src="/favicon.png" alt="PWA Logo" width="60" height="60"/>
-	<h1>SvelteKit!</h1>
-
-	<div class="built">Built at: { date }</div>
-
-	<h1 class="text-3xl font-bold underline">
-		Hello world!
-	</h1>
-	<button class="btn btn-warning">With daisyui!</button>
-
-	<slot />
-
+	<!--<slot />-->
+	{#if auth.user}
+		<slot />
+	{:else}		
+		<LoginImage />
+		<AuthForm />
+	{/if}
 </main>
-
-<footer>
-	<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
-</footer>
 
 {#if newVersionAvailable()}
 	<ReloadPrompt />
