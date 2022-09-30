@@ -12,11 +12,7 @@
 	</div>
 </div>
 
-
 <style>
-	.pwa-date {
-		visibility: hidden;
-	}
 	.pwa-toast {
 		position: fixed;
 		right: 0;
